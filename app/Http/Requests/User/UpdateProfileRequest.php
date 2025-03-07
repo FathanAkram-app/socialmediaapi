@@ -26,7 +26,7 @@ class UpdateProfileRequest extends FormRequest
     {
         return [
             'name' => 'sometimes|string|max:255',
-            'email' => 'sometimes|string|email|max:255|unique:users,email,' . Auth::id(), // Abaikan email saat ini
+            // 'email' => 'sometimes|string|email|max:255|unique:users,email,' . Auth::user()->id(), // Abaikan email saat ini
             'bio' => 'nullable|string',
             'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Contoh validasi gambar
         ];

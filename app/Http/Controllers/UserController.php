@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\User\UpdateProfileRequest;
-use App\Http\Resources\UserResource;
+use App\Resources\UserResource;
 use App\Services\UserService;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,7 +24,7 @@ class UserController extends Controller
             return response()->json(['message' => 'User not found'], 404);
         }
 
-        return new UserResource($user);
+        return response()->json(['message' => 'Successfully Updated Profile','profile'=>$user], 200);
     }
 
     public function getMyProfile()
@@ -64,14 +64,14 @@ class UserController extends Controller
             return response()->json(['message' => 'Cannot follow yourself'], 400);
         }
 
-        Auth::following()->attach($userId);
+        Auth::user()->following()->attach($userId);
 
         return response()->json(['message' => 'Followed user']);
     }
 
     public function unfollowUser(int $userId)
     {
-        Auth::following()->detach($userId);
+        Auth::user()->following()->detach($userId);
 
         return response()->json(['message' => 'Unfollowed user']);
     }

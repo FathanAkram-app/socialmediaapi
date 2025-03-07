@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Post\AddPostRequest;
 use App\Http\Requests\Post\EditPostRequest;
 use App\Http\Requests\Post\AddCommentRequest;
-use App\Http\Resources\PostResource;
-use App\Http\Resources\CommentResource;
+use App\Resources\PostResource;
+use App\Resources\CommentResource;
 use App\Models\Post;
 use App\Models\Comment;
 use App\Services\PostService;
@@ -91,7 +91,7 @@ class PostController extends Controller
             return response()->json(['message' => 'Post not found'], 404);
         }
 
-        Auth::likedPosts()->attach($postId);
+        Auth::user()->likedPosts()->attach($postId);
 
         return response()->json(['message' => 'Post liked']);
     }
@@ -104,7 +104,7 @@ class PostController extends Controller
             return response()->json(['message' => 'Post not found'], 404);
         }
 
-        Auth::likedPosts()->detach($postId);
+        Auth::user()->likedPosts()->detach($postId);
 
         return response()->json(['message' => 'Post unliked']);
     }
